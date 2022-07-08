@@ -66,6 +66,7 @@ class PerconaClient < Formula
       -DCOMPILATION_COMMENT=Homebrew
       -DCMAKE_FIND_FRAMEWORK=LAST
       -DCMAKE_VERBOSE_MAKEFILE=ON
+      -DCMAKE_CXX_FLAGS=-fpermissive
     ]
     args << "-DWITH_EDITLINE=system" if OS.mac?
 
