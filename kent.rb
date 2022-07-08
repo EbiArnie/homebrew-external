@@ -70,7 +70,7 @@ class Kent < Formula
 
     args = ["BINDIR=#{bin}", "SCRIPTS=#{bin}", "PREFIX=#{prefix}", "USE_SSL=1", "SSL_DIR=#{openssl.opt_prefix}"]
     args << "MACHTYPE=#{machtype}"
-    args << "CFLAGS=-fPIC"
+    args << "CFLAGS=-fPIC -fcommon"
     args << "PNGLIB=-L#{libpng.opt_lib} -lpng -lz"
     args << "PNGINCL=-I#{libpng.opt_include}"
 
@@ -79,7 +79,7 @@ class Kent < Formula
       args << "MYSQLLIBS=-lmysqlclient -lz"
     end
 
-    inreplace "src/inc/common.mk", "CFLAGS=", "CFLAGS=-fPIC"
+    inreplace "src/inc/common.mk", "CFLAGS=", "CFLAGS=-fPIC -fcommon"
     #inreplace "src/htslib/sam.c", "int magic_len; // has_EOF;", "int magic_len, has_EOF;"
 
     cd build.head? ? "src" : "src" do
