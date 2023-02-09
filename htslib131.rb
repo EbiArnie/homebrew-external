@@ -19,7 +19,7 @@ class Htslib131 < Formula
 
   def install
     inreplace 'Makefile', 'CFLAGS   = -g -Wall -O2', 'CFLAGS   = -g -Wall -O2 -Wno-unused -Wno-unused-result -fPIC'
-    system 'autoconf'
+    system 'autoreconf --verbose --install'
     system "./configure", "--enable-plugins", "--enable-libcurl", "--prefix=#{prefix}"
     system "make", "install"
     pkgshare.install "test"

@@ -1,4 +1,4 @@
-class PerconaClient < Formula
+class PerconaClientAT56 < Formula
   desc "Drop-in MySQL replacement"
   homepage "https://www.percona.com"
   url "https://www.percona.com/downloads/Percona-Server-5.6/Percona-Server-5.6.36-82.1/source/tarball/percona-server-5.6.36-82.1.tar.gz"
@@ -9,22 +9,13 @@ class PerconaClient < Formula
   version "5.6.36-82.1"
   sha256 "bebab31321e17682bc23f0f1e95211f002ba2a24c21d9a7ce9821cbe2a1ba4ba"
 
+  keg_only 'versioned_formulae'
+
   option "with-test", "Build with unit tests"
 
   depends_on "cmake" => :build
-  if OS.mac?
-    depends_on "pidof" unless MacOS.version >= :mountain_lion
-  end
   depends_on "ensembl/external/openssl@1.0"
   depends_on "readline" unless OS.mac?
-  depends_on "gcc@6"
-
-  fails_with gcc: "7"
-  fails_with gcc: "8"
-  fails_with gcc: "9"
-  fails_with gcc: "10" do
-    cause "ISO C++ forbids comparison between pointer and integer [-fpermissive]"
-  end
 
   conflicts_with "mysql-connector-c",
     :because => "both install `mysql_config`"
@@ -66,7 +57,8 @@ class PerconaClient < Formula
       -DCOMPILATION_COMMENT=Homebrew
       -DCMAKE_FIND_FRAMEWORK=LAST
       -DCMAKE_VERBOSE_MAKEFILE=ON
-      -DCMAKE_CXX_FLAGS=-fpermissive
+      -DCMAKE_CXX_FLAGS='-fpermissive'
+      -DWITH_DEFAULT_COMPILER_OPTIONS=ON
     ]
     args << "-DWITH_EDITLINE=system" if OS.mac?
 

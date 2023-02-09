@@ -1,4 +1,4 @@
-class Mafft < Formula
+class MafftAT7427 < Formula
   desc "Multiple alignments with fast Fourier transforms"
   homepage "https://mafft.cbrc.jp/alignment/software/"
   # doi "10.1093/nar/gkf436"
@@ -8,6 +8,15 @@ class Mafft < Formula
 
   url "https://mafft.cbrc.jp/alignment/software/mafft-7.427-with-extensions-src.tgz"
   sha256 "068abcbc20965cbfa4e14c138cbfbcd0d311874ac2fdde384a580ac774f40e26"
+
+  keg_only "Clashes with linuxbrew mafft"
+
+  depends_on "gcc@6"
+
+  fails_with gcc: "7"
+  fails_with gcc: "8"
+  fails_with gcc: "9"
+  fails_with gcc: "10"
 
   def install
     make_args = %W[CC=#{ENV.cc} CXX=#{ENV.cxx} PREFIX=#{prefix} install]
